@@ -27,6 +27,10 @@ int main(int argc, char *argv[]) {
     // printf("numero de dados: %d\n", atoi(inputFile));
 
     int N = atoi(inputFile);
+    if (T > N) {
+        printf("Erro! O Número de T(top) deve ser menor ou igual a %d\n", N);
+        return 0;
+    }
     Item *a = malloc(N * sizeof(Item));
 
     int i = 0;
@@ -37,10 +41,29 @@ int main(int argc, char *argv[]) {
     fclose(arqv_de_entrada);
 
     // ############ selectionSort ####################
-    int statistics[2];
+    // int statistics[2] = {0, 0};
+    // clock_t start, stop;
+    // start = clock();
+    // selectSort(a, 0, N - 1, statistics);
+    // stop = clock();
+    //
+    // // Output
+    // for (int i = 0; i < T; i++) {
+    //     printf("%d\n", a[i]);
+    // }
+    // double time = ((double)stop - start) / CLOCKS_PER_SEC;
+    // printf("\nTempo de CPU: %.4f\n", time);
+    // printf("Comparações: %d\n", statistics[0]);
+    // printf("Trocas: %d\n", statistics[1]);
+    // char *algorithm = "seleção";
+    // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
+    // printf("%s\t\t%s\t%d\t%d\t%d\t%d\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
+
+    // ############ InsertSort ####################
+    int statistics[2] = {0, 0};
     clock_t start, stop;
     start = clock();
-    selectSort(a, 0, N - 1, statistics);
+    insertionSort(a, 0, N - 1, statistics);
     stop = clock();
 
     // Output
@@ -51,11 +74,8 @@ int main(int argc, char *argv[]) {
     printf("\nTempo de CPU: %.4f\n", time);
     printf("Comparações: %d\n", statistics[0]);
     printf("Trocas: %d\n", statistics[1]);
-    char *algorithm = "seleção";
+    char *algorithm = "insertion";
     printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
-    printf("%s\t\t%s\t%d\t%d\t%d\t%d\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
-
-    // ############ InsertSort ####################
-
+    printf("%s\t%s\t%d\t%d\t%d\t%d\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
     free(a);
 }

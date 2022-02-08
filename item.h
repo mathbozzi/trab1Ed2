@@ -11,7 +11,5 @@ typedef int Item;
         A = B;      \
         B = t;      \
     }
-#define compexch(A, B) \
-    if (less(B, A)) exch(A, B)
 
 #endif
