@@ -1,5 +1,6 @@
 #ifndef ITEM_H
 #define ITEM_H
+#include <stdio.h>
 
 typedef int Item;
 

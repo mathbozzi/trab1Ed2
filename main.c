@@ -4,7 +4,11 @@
 
 #include "item.h"
 
-extern void sort(Item *, int, int);
+extern void selectSort(Item *a, int lo, int hi, unsigned long statistics[2]);
+extern void insertionSort(Item *a, int lo, int hi, unsigned long statistics[2]);
+extern void insertionSort2(Item *a, int lo, int hi, unsigned long statistics[2]);
+extern void shellSort(Item *a, int lo, int hi, unsigned long statistics[2]);
+extern void quickSort(Item *a, int lo, int hi, unsigned long statistics[2]);
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
@@ -40,7 +44,7 @@ int main(int argc, char *argv[]) {
     }
     fclose(arqv_de_entrada);
 
-    // ############ selectionSort ####################
+    // ############ Selection Sort ####################
     // int statistics[2] = {0, 0};
     // clock_t start, stop;
     // start = clock();
@@ -59,7 +63,7 @@ int main(int argc, char *argv[]) {
     // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
     // printf("%s\t\t%s\t%d\t%d\t%d\t%d\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
 
-    // ############ InsertSort ####################
+    // ############ Insert Sort ####################
     // unsigned long statistics[2] = {0, 0};
     // clock_t start, stop;
     // start = clock();
@@ -79,10 +83,30 @@ int main(int argc, char *argv[]) {
     // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
     // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
 
+    // ############ Shell Sort ####################
+    // unsigned long statistics[2] = {0, 0};
+    // clock_t start, stop;
+    // start = clock();
+    // shellSort(a, 0, N - 1, statistics);
+    // stop = clock();
+    //
+    // // Output
+    // for (int i = 0; i < T; i++) {
+    //     printf("%d\n", a[i]);
+    // }
+    // double time = ((double)stop - start) / CLOCKS_PER_SEC;
+    // printf("\nTempo de CPU: %.4f\n", time);
+    // printf("Comparações: %lu\n", statistics[0]);
+    // printf("Trocas: %lu\n", statistics[1]);
+    // char *algorithm = "shell Sort";
+    // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
+    // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
+
+    // ############ Quick Sort ####################
     unsigned long statistics[2] = {0, 0};
     clock_t start, stop;
     start = clock();
-    shellSort(a, 0, N - 1, statistics);
+    quickSort(a, 0, N - 1, statistics);
     stop = clock();
 
     // Output
@@ -93,7 +117,7 @@ int main(int argc, char *argv[]) {
     printf("\nTempo de CPU: %.4f\n", time);
     printf("Comparações: %lu\n", statistics[0]);
     printf("Trocas: %lu\n", statistics[1]);
-    char *algorithm = "shell Sort";
+    char *algorithm = "quick Sort";
     printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
     printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
 
