@@ -43,7 +43,7 @@ void imprime(int modoImpressao, int T, Element *e, double time, unsigned long* s
     }
 }
 
-int selecionaMetodoDeOrdenaca(char selectedSortMethod) {
+int selecionaMetodoDeOrdenacao(char selectedSortMethod) {
   switch(selectedSortMethod){
       case 'a':
         return 1;
@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
     char selectedSortMethod = argv[1][2];
     int selectedPrintMode = atoi(argv[1][1]);
     
-    int selected = selecionaMetodoDeOrdenaca(selectedSortMethod);
+    int selected = selecionaMetodoDeOrdenacao(selectedSortMethod);
     
     if(selected == 1 || selected == 2){
         printf("Ordenação por seleção\n");
