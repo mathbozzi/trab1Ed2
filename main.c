@@ -45,11 +45,31 @@ int main(int argc, char *argv[]) {
     }
     fclose(arqv_de_entrada);
 
-    // ############ Selection Sort ####################
+    // // ############ Selection Sort ####################
+    // unsigned long statistics[2] = {0, 0};
+    // clock_t start, stop;
+    // start = clock();
+    // selectionSort(e, 0, N - 1, statistics);
+    // stop = clock();
+    //
+    // // Output
+    // for (int i = 0; i < T; i++) {
+    //     printf("%d\n", e[i]);
+    // }
+    // double time = ((double)stop - start) / CLOCKS_PER_SEC;
+    // printf("\nTempo de CPU :%.4f\n", time);
+    // printf("Comparações: %lu\n", statistics[0]);
+    // printf("Trocas: %lu\n", statistics[1]);
+    // char *algorithm = "seleção";
+    // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
+    // printf("%s\t\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
+
+    // ############ Insert Sort ####################
     unsigned long statistics[2] = {0, 0};
     clock_t start, stop;
     start = clock();
-    selectionSort(e, 0, N - 1, statistics);
+    insertionSort(e, 0, N - 1, statistics);  //melhor
+    //insertionSort2(e, 0, N - 1, statistics);
     stop = clock();
 
     // Output
@@ -57,32 +77,12 @@ int main(int argc, char *argv[]) {
         printf("%d\n", e[i]);
     }
     double time = ((double)stop - start) / CLOCKS_PER_SEC;
-    printf("\nTempo de CPU :%.4f\n", time);
+    printf("\nTempo de CPU: %.4f\n", time);
     printf("Comparações: %lu\n", statistics[0]);
     printf("Trocas: %lu\n", statistics[1]);
-    char *algorithm = "seleção";
+    char *algorithm = "insertion";
     printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
-    printf("%s\t\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
-
-    // ############ Insert Sort ####################
-    // unsigned long statistics[2] = {0, 0};
-    // clock_t start, stop;
-    // start = clock();
-    // insertionSort(e, 0, N - 1, statistics);  //melhor
-    // //insertionSort2(e, 0, N - 1, statistics);
-    // stop = clock();
-    //
-    // // Output
-    // for (int i = 0; i < T; i++) {
-    //     printf("%d\n", a[i]);
-    // }
-    // double time = ((double)stop - start) / CLOCKS_PER_SEC;
-    // printf("\nTempo de CPU: %.4f\n", time);
-    // printf("Comparações: %lu\n", statistics[0]);
-    // printf("Trocas: %lu\n", statistics[1]);
-    // char *algorithm = "insertion";
-    // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
-    // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
+    printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
 
     // ############ Shell Sort ####################
     // unsigned long statistics[2] = {0, 0};

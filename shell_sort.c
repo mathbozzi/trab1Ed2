@@ -1,6 +1,6 @@
 #include "element.h"
 
-void shellSort(Element *a, int lo, int hi, unsigned long statistics[2]) {
+void shellSort(Element *elements, int lo, int hi, unsigned long statistics[2]) {
     int comparision = 0;
     int changes = 0;
     int h = 1;
@@ -10,15 +10,17 @@ void shellSort(Element *a, int lo, int hi, unsigned long statistics[2]) {
     while (h > 0) {  // h-sort
         for (int i = lo + h; i <= hi; i++) {
             int j = i;  // Insertion sort
-            Element v = a[i];
+            Element v = elements[i];
             comparision++;
-            while (j >= lo + h && more(v, a[j - h])) {
-                comparision++;
+            int comp2 = 0;
+            while (j >= lo + h && more(v, elements[j - h])) {
+                comp2++;
                 changes++;
-                a[j] = a[j - h];
+                elements[j] = elements[j - h];
                 j -= h;
             }
-            a[j] = v;
+            comparision = +comp2;
+            elements[j] = v;
         }
         h /= 3;  // proximo incremento de h
     }
