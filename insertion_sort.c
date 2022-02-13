@@ -22,11 +22,15 @@ void insertionSort(Element *elements, int lo, int hi, unsigned long statistics[2
     for (int i = lo + 2; i <= hi; i++) {
         int j = i;
         Element v = elements[i];
+        comparision++;
+        int comp2 = 0;
         while (more(v, elements[j - 1])) {
-            comparision++;
+            comp2++;
             elements[j] = elements[j - 1];
+            changes++;
             j--;
         }
+        comparision += comp2;
         changes++;
         elements[j] = v;
     }

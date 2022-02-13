@@ -1,11 +1,12 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <ctype.h>
 
 #include "element.h"
 
 extern void selectionSort(Element *elements, int lo, int hi, unsigned long statistics[2]);
+extern void selectionSortAsc(Element *elements, int lo, int hi);
 extern void insertionSort(Element *elements, int lo, int hi, unsigned long statistics[2]);
 extern void insertionSort2(Element *elements, int lo, int hi, unsigned long statistics[2]);
 extern void shellSort(Element *elements, int lo, int hi, unsigned long statistics[2]);
@@ -13,10 +14,10 @@ extern void quickSort(Element *elements, int lo, int hi, unsigned long statistic
 extern void heapSort(Element *elements, int lo, int hi, unsigned long statistics[2]);
 
 void imprimeTMaioresElementos(int T, Element *e) {
+    printf("\n");
     for (int i = 0; i < T; i++) {
         printf("%d\n", e[i]);
     }
-    printf("\n");
 }
 
 void imprimeEstatisticas(double time, unsigned long *statistics) {
@@ -28,19 +29,19 @@ void imprimeEstatisticas(double time, unsigned long *statistics) {
 void imprimeTable(char *archive, int N, int T, unsigned long *statistics, double time, char *algorithm) {
     // char *algorithm = "seleção";
     printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
-    printf("%s\t\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, archive, N, T, statistics[0], statistics[1], time);
+    printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, archive, N, T, statistics[0], statistics[1], time);
 }
 
-void imprime(char modoImpressao, int T, Element *e, double time, unsigned long *statistics, char *archive, int N, char *algorithm) {
-    if (modoImpressao == 49) {
+void imprime(int modoImpressao, int T, Element *e, double time, unsigned long *statistics, char *archive, int N, char *algorithm) {
+    if (modoImpressao == 1) {
         imprimeTMaioresElementos(T, e);
     }
 
-    else if (modoImpressao == 50) {
+    else if (modoImpressao == 2) {
         imprimeEstatisticas(time, statistics);
     }
 
-    else if (modoImpressao == 51) {
+    else if (modoImpressao == 3) {
         imprimeTable(archive, N, T, statistics, time, algorithm);
     }
 }
@@ -100,37 +101,34 @@ int main(int argc, char *argv[]) {
     fclose(arqv_de_entrada);
 
     /* ************** */
-    int arrPrint[3] = { -1, -1, -1 };
+    int arrPrint[3] = {-1, -1, -1};
     int posArrPrint = 0;
-    
+
     char arrSortMethod[6] = {'\0', '\0', '\0', '\0', '\0', '\0'};
     int posArrSortMethod = 0;
 
-
-    for (int cont = 0; argv[1][cont] != '\0'; cont++)
-    {
-     
+    for (int cont = 1; argv[1][cont] != '\0'; cont++) {
         // check for alphabets
-        if (isalpha(argv[1][cont]) != 0){
+        if (isalpha(argv[1][cont]) != 0) {
             arrSortMethod[posArrSortMethod] = argv[1][cont];
             posArrSortMethod++;
         }
- 
+
         // check for decimal digits
-        else if (isdigit(argv[1][cont]) != 0){
+        else if (isdigit(argv[1][cont]) != 0) {
             arrPrint[posArrPrint] = argv[1][cont] - '0';
             posArrPrint++;
         }
-            
     }
 
-    for(i = 0; i < 6; i++) {
+    for (i = 0; i < 6; i++) {
         char selectedSortMethod = arrSortMethod[i];
         // char selectedPrintMode = argv[1][1];
         // printf("\n%c\n", selectedSortMethod);
         // printf("\n%c\n", selectedPrintMode);
 
         int selected = selecionaMetodoDeOrdenacao(selectedSortMethod);
+        // printf("\n%d\n", selected);
 
         if (selected == 1 || selected == 2) {
             // printf("Ordenação por seleção\n");
@@ -144,8 +142,11 @@ int main(int argc, char *argv[]) {
             double time = ((double)stop - start) / CLOCKS_PER_SEC;
             char *algorithm = "Selection Sort";
             // Output
-            for(int j = 0; j < 3; j++){
-                if(arrPrint[j] == -1){ break; }
+            for (int j = 0; j < 3; j++) {
+                // printf("arr %d\n", arrPrint[j]);
+                if (arrPrint[j] == -1) {
+                    break;
+                }
 
                 imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
             }
@@ -174,8 +175,10 @@ int main(int argc, char *argv[]) {
             char *algorithm = "Insertion Sort";
             // Output
             double time = ((double)stop - start) / CLOCKS_PER_SEC;
-            for(int j = 0; j < 3; j++){
-                if(arrPrint[j] == -1){ break; }
+            for (int j = 0; j < 3; j++) {
+                if (arrPrint[j] == -1) {
+                    break;
+                }
 
                 imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
             }
@@ -202,8 +205,10 @@ int main(int argc, char *argv[]) {
             char *algorithm = "Shell Sort";
             // Output
             double time = ((double)stop - start) / CLOCKS_PER_SEC;
-            for(int j = 0; j < 3; j++){
-                if(arrPrint[j] == -1){ break; }
+            for (int j = 0; j < 3; j++) {
+                if (arrPrint[j] == -1) {
+                    break;
+                }
 
                 imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
             }
@@ -230,8 +235,10 @@ int main(int argc, char *argv[]) {
             char *algorithm = "Quick Sort";
             // Output
             double time = ((double)stop - start) / CLOCKS_PER_SEC;
-            for(int j = 0; j < 3; j++){
-                if(arrPrint[j] == -1){ break; }
+            for (int j = 0; j < 3; j++) {
+                if (arrPrint[j] == -1) {
+                    break;
+                }
 
                 imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
             }
@@ -258,8 +265,10 @@ int main(int argc, char *argv[]) {
             char *algorithm = "Heap Sort";
             // Output
             double time = ((double)stop - start) / CLOCKS_PER_SEC;
-            for(int j = 0; j < 3; j++){
-                if(arrPrint[j] == -1){ break; }
+            for (int j = 0; j < 3; j++) {
+                if (arrPrint[j] == -1) {
+                    break;
+                }
 
                 imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
             }
@@ -276,10 +285,10 @@ int main(int argc, char *argv[]) {
             // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
         }
 
-        if (selected == 0) {
-            printf("Método de ordenção não encontrado\n");
-            break;
-        }
+        // if (selected == 0) {
+        //     printf("Método de ordenação não encontrado\n");
+        //     break;
+        // }
     }
 
     free(e);

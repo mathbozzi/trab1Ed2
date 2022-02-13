@@ -18,6 +18,7 @@ void shellSort(Element *a, int lo, int hi, unsigned long statistics[2]) {
                 a[j] = a[j - h];
                 j -= h;
             }
+            changes++;
             a[j] = v;
         }
         h /= 3;  // proximo incremento de h
