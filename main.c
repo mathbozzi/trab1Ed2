@@ -98,139 +98,187 @@ int main(int argc, char *argv[]) {
     }
     fclose(arqv_de_entrada);
 
-    char selectedSortMethod = argv[1][2];
-    char selectedPrintMode = argv[1][1];
-    printf("\n%c\n", selectedSortMethod);
-    printf("\n%c\n", selectedPrintMode);
+    /* ************** */
+    int arrPrint[3] = { -1, -1, -1 };
+    int posArrPrint = 0;
+    
+    char arrSortMethod[6] = {'\0', '\0', '\0', '\0', '\0', '\0'};
+    int posArrSortMethod = 0;
 
-    int selected = selecionaMetodoDeOrdenacao(selectedSortMethod);
 
-    if (selected == 1 || selected == 2) {
-        // printf("Ordenação por seleção\n");
-        // ############ Selection Sort ####################
-        unsigned long statistics[2] = {0, 0};
-        clock_t start, stop;
-        start = clock();
-        selectionSort(e, 0, N - 1, statistics);
-        stop = clock();
-
-        double time = ((double)stop - start) / CLOCKS_PER_SEC;
-        char *algorithm = "Selection Sort";
-        // Output
-        imprime(selectedPrintMode, T, e, time, statistics, argv[3], N, algorithm);
-
-        // Output
-        // for (int i = 0; i < T; i++) {
-        //     printf("%d\n", e[i]);
-        // }
-        // double time = ((double)stop - start) / CLOCKS_PER_SEC;
-        // printf("\nTempo de CPU :%.4f\n", time);
-        // printf("Comparações: %lu\n", statistics[0]);
-        // printf("Trocas: %lu\n", statistics[1]);
-        // char *algorithm = "seleção";
-        // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
-        // printf("%s\t\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
+    for (int cont = 0; argv[1][cont] != '\0'; cont++)
+    {
+     
+        // check for alphabets
+        if (isalpha(argv[1][cont]) != 0){
+            arrSortMethod[posArrSortMethod] = argv[1][cont];
+            posArrSortMethod++;
+        }
+ 
+        // check for decimal digits
+        else if (isdigit(argv[1][cont]) != 0){
+            arrPrint[posArrPrint] = argv[1][cont] - '0';
+            posArrPrint++;
+        }
+            
     }
 
-    if (selected == 1 || selected == 3) {
-        // ############ Insert Sort ####################
-        unsigned long statistics[2] = {0, 0};
-        clock_t start, stop;
-        start = clock();
-        insertionSort(e, 0, N - 1, statistics);  //melhor
-        //insertionSort2(e, 0, N - 1, statistics);
-        stop = clock();
-        char *algorithm = "Insertion Sort";
-        // Output
-        double time = ((double)stop - start) / CLOCKS_PER_SEC;
-        imprime(selectedPrintMode, T, e, time, statistics, argv[3], N, algorithm);
+    for(i = 0; i < 6; i++) {
+        char selectedSortMethod = arrSortMethod[i];
+        // char selectedPrintMode = argv[1][1];
+        // printf("\n%c\n", selectedSortMethod);
+        // printf("\n%c\n", selectedPrintMode);
 
-        // for (int i = 0; i < T; i++) {
-        //     printf("%d\n", a[i]);
-        // }
-        // double time = ((double)stop - start) / CLOCKS_PER_SEC;
-        // printf("\nTempo de CPU: %.4f\n", time);
-        // printf("Comparações: %lu\n", statistics[0]);
-        // printf("Trocas: %lu\n", statistics[1]);
-        // char *algorithm = "insertion";
-        // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
-        // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
-    }
+        int selected = selecionaMetodoDeOrdenacao(selectedSortMethod);
 
-    if (selected == 1 || selected == 4) {
-        // ############ Shell Sort ####################
-        unsigned long statistics[2] = {0, 0};
-        clock_t start, stop;
-        start = clock();
-        shellSort(e, 0, N - 1, statistics);
-        stop = clock();
-        char *algorithm = "Shell Sort";
-        // Output
-        double time = ((double)stop - start) / CLOCKS_PER_SEC;
-        imprime(selectedPrintMode, T, e, time, statistics, argv[3], N, algorithm);
-        // for (int i = 0; i < T; i++) {
-        //     printf("%d\n", a[i]);
-        // }
-        // double time = ((double)stop - start) / CLOCKS_PER_SEC;
-        // printf("\nTempo de CPU: %.4f\n", time);
-        // printf("Comparações: %lu\n", statistics[0]);
-        // printf("Trocas: %lu\n", statistics[1]);
-        // char *algorithm = "shell Sort";
-        // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
-        // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
-    }
+        if (selected == 1 || selected == 2) {
+            // printf("Ordenação por seleção\n");
+            // ############ Selection Sort ####################
+            unsigned long statistics[2] = {0, 0};
+            clock_t start, stop;
+            start = clock();
+            selectionSort(e, 0, N - 1, statistics);
+            stop = clock();
 
-    if (selected == 1 || selected == 5) {
-        // ############ Quick Sort ####################
-        unsigned long statistics[2] = {0, 0};
-        clock_t start, stop;
-        start = clock();
-        quickSort(e, 0, N - 1, statistics);
-        stop = clock();
+            double time = ((double)stop - start) / CLOCKS_PER_SEC;
+            char *algorithm = "Selection Sort";
+            // Output
+            for(int j = 0; j < 3; j++){
+                if(arrPrint[j] == -1){ break; }
 
-        char *algorithm = "Quick Sort";
-        // Output
-        double time = ((double)stop - start) / CLOCKS_PER_SEC;
-        imprime(selectedPrintMode, T, e, time, statistics, argv[3], N, algorithm);
+                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
+            }
 
-        // for (int i = 0; i < T; i++) {
-        //     printf("%d\n", a[i]);
-        // }
-        // double time = ((double)stop - start) / CLOCKS_PER_SEC;
-        // printf("\nTempo de CPU: %.4f\n", time);
-        // printf("Comparações: %lu\n", statistics[0]);
-        // printf("Trocas: %lu\n", statistics[1]);
-        // char *algorithm = "quick Sort";
-        // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
-        // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
-    }
+            // Output
+            // for (int i = 0; i < T; i++) {
+            //     printf("%d\n", e[i]);
+            // }
+            // double time = ((double)stop - start) / CLOCKS_PER_SEC;
+            // printf("\nTempo de CPU :%.4f\n", time);
+            // printf("Comparações: %lu\n", statistics[0]);
+            // printf("Trocas: %lu\n", statistics[1]);
+            // char *algorithm = "seleção";
+            // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
+            // printf("%s\t\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
+        }
 
-    if (selected == 1 || selected == 6) {
-        // ############ Heap Sort ####################
-        unsigned long statistics[2] = {0, 0};
-        clock_t start, stop;
-        start = clock();
-        heapSort(e, 0, N - 1, statistics);
-        stop = clock();
-        char *algorithm = "Heap Sort";
-        // Output
-        double time = ((double)stop - start) / CLOCKS_PER_SEC;
-        imprime(selectedPrintMode, T, e, time, statistics, argv[3], N, algorithm);
+        if (selected == 1 || selected == 3) {
+            // ############ Insert Sort ####################
+            unsigned long statistics[2] = {0, 0};
+            clock_t start, stop;
+            start = clock();
+            insertionSort(e, 0, N - 1, statistics);  //melhor
+            //insertionSort2(e, 0, N - 1, statistics);
+            stop = clock();
+            char *algorithm = "Insertion Sort";
+            // Output
+            double time = ((double)stop - start) / CLOCKS_PER_SEC;
+            for(int j = 0; j < 3; j++){
+                if(arrPrint[j] == -1){ break; }
 
-        // for (int i = 0; i < T; i++) {
-        //     printf("%d\n", a[i]);
-        // }
-        // double time = ((double)stop - start) / CLOCKS_PER_SEC;
-        // printf("\nTempo de CPU: %.4f\n", time);
-        // printf("Comparações: %lu\n", statistics[0]);
-        // printf("Trocas: %lu\n", statistics[1]);
-        // char *algorithm = "heap Sort";
-        // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
-        // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
-    }
+                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
+            }
 
-    if (selected == 0) {
-        printf("Método de ordenção não encontrado\n");
+            // for (int i = 0; i < T; i++) {
+            //     printf("%d\n", a[i]);
+            // }
+            // double time = ((double)stop - start) / CLOCKS_PER_SEC;
+            // printf("\nTempo de CPU: %.4f\n", time);
+            // printf("Comparações: %lu\n", statistics[0]);
+            // printf("Trocas: %lu\n", statistics[1]);
+            // char *algorithm = "insertion";
+            // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
+            // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
+        }
+
+        if (selected == 1 || selected == 4) {
+            // ############ Shell Sort ####################
+            unsigned long statistics[2] = {0, 0};
+            clock_t start, stop;
+            start = clock();
+            shellSort(e, 0, N - 1, statistics);
+            stop = clock();
+            char *algorithm = "Shell Sort";
+            // Output
+            double time = ((double)stop - start) / CLOCKS_PER_SEC;
+            for(int j = 0; j < 3; j++){
+                if(arrPrint[j] == -1){ break; }
+
+                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
+            }
+            // for (int i = 0; i < T; i++) {
+            //     printf("%d\n", a[i]);
+            // }
+            // double time = ((double)stop - start) / CLOCKS_PER_SEC;
+            // printf("\nTempo de CPU: %.4f\n", time);
+            // printf("Comparações: %lu\n", statistics[0]);
+            // printf("Trocas: %lu\n", statistics[1]);
+            // char *algorithm = "shell Sort";
+            // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
+            // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
+        }
+
+        if (selected == 1 || selected == 5) {
+            // ############ Quick Sort ####################
+            unsigned long statistics[2] = {0, 0};
+            clock_t start, stop;
+            start = clock();
+            quickSort(e, 0, N - 1, statistics);
+            stop = clock();
+
+            char *algorithm = "Quick Sort";
+            // Output
+            double time = ((double)stop - start) / CLOCKS_PER_SEC;
+            for(int j = 0; j < 3; j++){
+                if(arrPrint[j] == -1){ break; }
+
+                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
+            }
+
+            // for (int i = 0; i < T; i++) {
+            //     printf("%d\n", a[i]);
+            // }
+            // double time = ((double)stop - start) / CLOCKS_PER_SEC;
+            // printf("\nTempo de CPU: %.4f\n", time);
+            // printf("Comparações: %lu\n", statistics[0]);
+            // printf("Trocas: %lu\n", statistics[1]);
+            // char *algorithm = "quick Sort";
+            // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
+            // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
+        }
+
+        if (selected == 1 || selected == 6) {
+            // ############ Heap Sort ####################
+            unsigned long statistics[2] = {0, 0};
+            clock_t start, stop;
+            start = clock();
+            heapSort(e, 0, N - 1, statistics);
+            stop = clock();
+            char *algorithm = "Heap Sort";
+            // Output
+            double time = ((double)stop - start) / CLOCKS_PER_SEC;
+            for(int j = 0; j < 3; j++){
+                if(arrPrint[j] == -1){ break; }
+
+                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
+            }
+
+            // for (int i = 0; i < T; i++) {
+            //     printf("%d\n", a[i]);
+            // }
+            // double time = ((double)stop - start) / CLOCKS_PER_SEC;
+            // printf("\nTempo de CPU: %.4f\n", time);
+            // printf("Comparações: %lu\n", statistics[0]);
+            // printf("Trocas: %lu\n", statistics[1]);
+            // char *algorithm = "heap Sort";
+            // printf("\n[algoritmo\tarquivo\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
+            // printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, argv[3], N, T, statistics[0], statistics[1], time);
+        }
+
+        if (selected == 0) {
+            printf("Método de ordenção não encontrado\n");
+            break;
+        }
     }
 
     free(e);
