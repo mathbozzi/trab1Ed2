@@ -133,7 +133,9 @@ int main(int argc, char *argv[]) {
         if (selected == 1 || selected == 2) {
             // printf("Ordenação por seleção\n");
             // ############ Selection Sort ####################
-            unsigned long statistics[2] = {0, 0};
+            unsigned long *statistics = malloc(2 * sizeof(unsigned long));
+            statistics[0] = 0;
+            statistics[1] = 0;
             clock_t start, stop;
             start = clock();
             selectionSort(e, 0, N - 1, statistics);
@@ -151,6 +153,8 @@ int main(int argc, char *argv[]) {
                 imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
             }
 
+            free(statistics);
+
             // Output
             // for (int i = 0; i < T; i++) {
             //     printf("%d\n", e[i]);
@@ -166,7 +170,9 @@ int main(int argc, char *argv[]) {
 
         if (selected == 1 || selected == 3) {
             // ############ Insert Sort ####################
-            unsigned long statistics[2] = {0, 0};
+            unsigned long *statistics = malloc(2 * sizeof(unsigned long));
+            statistics[0] = 0;
+            statistics[1] = 0;
             clock_t start, stop;
             start = clock();
             insertionSort(e, 0, N - 1, statistics);  //melhor
@@ -182,6 +188,7 @@ int main(int argc, char *argv[]) {
 
                 imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
             }
+            free(statistics);
 
             // for (int i = 0; i < T; i++) {
             //     printf("%d\n", a[i]);
@@ -197,7 +204,9 @@ int main(int argc, char *argv[]) {
 
         if (selected == 1 || selected == 4) {
             // ############ Shell Sort ####################
-            unsigned long statistics[2] = {0, 0};
+            unsigned long *statistics = malloc(2 * sizeof(unsigned long));
+            statistics[0] = 0;
+            statistics[1] = 0;
             clock_t start, stop;
             start = clock();
             shellSort(e, 0, N - 1, statistics);
@@ -212,6 +221,7 @@ int main(int argc, char *argv[]) {
 
                 imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
             }
+            free(statistics);
             // for (int i = 0; i < T; i++) {
             //     printf("%d\n", a[i]);
             // }
@@ -226,7 +236,9 @@ int main(int argc, char *argv[]) {
 
         if (selected == 1 || selected == 5) {
             // ############ Quick Sort ####################
-            unsigned long statistics[2] = {0, 0};
+            unsigned long *statistics = malloc(2 * sizeof(unsigned long));
+            statistics[0] = 0;
+            statistics[1] = 0;
             clock_t start, stop;
             start = clock();
             quickSort(e, 0, N - 1, statistics);
@@ -243,6 +255,8 @@ int main(int argc, char *argv[]) {
                 imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
             }
 
+            free(statistics);
+
             // for (int i = 0; i < T; i++) {
             //     printf("%d\n", a[i]);
             // }
@@ -257,7 +271,9 @@ int main(int argc, char *argv[]) {
 
         if (selected == 1 || selected == 6) {
             // ############ Heap Sort ####################
-            unsigned long statistics[2] = {0, 0};
+            unsigned long *statistics = malloc(2 * sizeof(unsigned long));
+            statistics[0] = 0;
+            statistics[1] = 0;
             clock_t start, stop;
             start = clock();
             heapSort(e, 0, N - 1, statistics);
@@ -272,6 +288,7 @@ int main(int argc, char *argv[]) {
 
                 imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
             }
+            free(statistics);
 
             // for (int i = 0; i < T; i++) {
             //     printf("%d\n", a[i]);

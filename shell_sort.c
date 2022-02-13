@@ -14,7 +14,6 @@ void shellSort(Element *a, int lo, int hi, unsigned long statistics[2]) {
             comparision++;
             while (j >= lo + h && more(v, a[j - h])) {
                 comparision++;
-                changes++;
                 a[j] = a[j - h];
                 j -= h;
             }
