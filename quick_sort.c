@@ -41,3 +41,31 @@ void quickSort(Element *elements, int lo, int hi, unsigned long statistics[2]) {
     quickSort(elements, lo, j - 1, statistics);
     quickSort(elements, j + 1, hi, statistics);
 }
+
+// ##### versão melhorada ###
+void quick_sort3(Element *a, int lo, int hi, unsigned long statistics[2]) {
+    int comparision = 0;
+    int changes = 0;
+    if (hi <= lo) return;
+    Element v = a[lo];
+    int lt = lo, gt = hi, i = lo;
+    while (i <= gt) {
+        comparision++;
+        if (a[i] < v) {
+            changes++;
+            swap(a[lt], a[i]);
+            lt++;
+            i++;
+        } else if (a[i] > v) {
+            changes++;
+            swap(a[i], a[gt]);
+            gt--;
+        } else {
+            i++;
+        }
+    }
+    statistics[0] += comparision;
+    statistics[1] += changes;
+    quick_sort3(a, lo, lt - 1, statistics);
+    quick_sort3(a, gt + 1, hi, statistics);
+}

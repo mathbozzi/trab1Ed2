@@ -11,17 +11,24 @@ extern void insertionSort(Element *elements, int lo, int hi, unsigned long stati
 extern void insertionSort2(Element *elements, int lo, int hi, unsigned long statistics[2]);
 extern void shellSort(Element *elements, int lo, int hi, unsigned long statistics[2]);
 extern void quickSort(Element *elements, int lo, int hi, unsigned long statistics[2]);
+extern void quick_sort3(Element *elements, int lo, int hi, unsigned long statistics[2]);
 extern void heapSort(Element *elements, int lo, int hi, unsigned long statistics[2]);
 
-void imprimeTMaioresElementos(int T, Element *e) {
+void imprimeTMaioresElementos(int T, int N, Element *e, int flagMoreLess) {
     printf("\n");
-    for (int i = 0; i < T; i++) {
-        printf("%d\n", e[i]);
+    if (flagMoreLess == 1) {
+        for (int i = 0; i < T; i++) {
+            printf("%d\n", e[(N - 1) - i]);
+        }
+    } else {
+        for (int i = 0; i < T; i++) {
+            printf("%d\n", e[i]);
+        }
     }
 }
 
 void imprimeEstatisticas(double time, unsigned long *statistics) {
-    printf("\nTempo de CPU :%.4f\n", time);
+    printf("\nTempo de CPU: %.4f\n", time);
     printf("Comparações: %lu\n", statistics[0]);
     printf("Trocas: %lu\n", statistics[1]);
 }
@@ -32,9 +39,9 @@ void imprimeTable(char *archive, int N, int T, unsigned long *statistics, double
     printf("%s\t%s\t%d\t%d\t%lu\t%lu\t%.4f\n", algorithm, archive, N, T, statistics[0], statistics[1], time);
 }
 
-void imprime(int modoImpressao, int T, Element *e, double time, unsigned long *statistics, char *archive, int N, char *algorithm) {
+void imprime(int modoImpressao, int T, Element *e, double time, unsigned long *statistics, char *archive, int N, char *algorithm, int flagMoreLess) {
     if (modoImpressao == 1) {
-        imprimeTMaioresElementos(T, e);
+        imprimeTMaioresElementos(T, N, e, flagMoreLess);
     }
 
     else if (modoImpressao == 2) {
@@ -133,9 +140,7 @@ int main(int argc, char *argv[]) {
         if (selected == 1 || selected == 2) {
             // printf("Ordenação por seleção\n");
             // ############ Selection Sort ####################
-            unsigned long *statistics = malloc(2 * sizeof(unsigned long));
-            statistics[0] = 0;
-            statistics[1] = 0;
+            unsigned long statistics[2] = {0, 0};
             clock_t start, stop;
             start = clock();
             selectionSort(e, 0, N - 1, statistics);
@@ -150,10 +155,8 @@ int main(int argc, char *argv[]) {
                     break;
                 }
 
-                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
+                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm, 1);
             }
-
-            free(statistics);
 
             // Output
             // for (int i = 0; i < T; i++) {
@@ -170,9 +173,7 @@ int main(int argc, char *argv[]) {
 
         if (selected == 1 || selected == 3) {
             // ############ Insert Sort ####################
-            unsigned long *statistics = malloc(2 * sizeof(unsigned long));
-            statistics[0] = 0;
-            statistics[1] = 0;
+            unsigned long statistics[2] = {0, 0};
             clock_t start, stop;
             start = clock();
             insertionSort(e, 0, N - 1, statistics);  //melhor
@@ -186,9 +187,8 @@ int main(int argc, char *argv[]) {
                     break;
                 }
 
-                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
+                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm, 2);
             }
-            free(statistics);
 
             // for (int i = 0; i < T; i++) {
             //     printf("%d\n", a[i]);
@@ -204,9 +204,7 @@ int main(int argc, char *argv[]) {
 
         if (selected == 1 || selected == 4) {
             // ############ Shell Sort ####################
-            unsigned long *statistics = malloc(2 * sizeof(unsigned long));
-            statistics[0] = 0;
-            statistics[1] = 0;
+            unsigned long statistics[2] = {0, 0};
             clock_t start, stop;
             start = clock();
             shellSort(e, 0, N - 1, statistics);
@@ -219,9 +217,8 @@ int main(int argc, char *argv[]) {
                     break;
                 }
 
-                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
+                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm, 2);
             }
-            free(statistics);
             // for (int i = 0; i < T; i++) {
             //     printf("%d\n", a[i]);
             // }
@@ -236,12 +233,11 @@ int main(int argc, char *argv[]) {
 
         if (selected == 1 || selected == 5) {
             // ############ Quick Sort ####################
-            unsigned long *statistics = malloc(2 * sizeof(unsigned long));
-            statistics[0] = 0;
-            statistics[1] = 0;
+            unsigned long statistics[2] = {0, 0};
             clock_t start, stop;
             start = clock();
             quickSort(e, 0, N - 1, statistics);
+            // quick_sort3(e, 0, N - 1, statistics);  //metodo melhorado
             stop = clock();
 
             char *algorithm = "Quick Sort";
@@ -252,10 +248,9 @@ int main(int argc, char *argv[]) {
                     break;
                 }
 
-                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
+                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm, 2);
+                // imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm, 1);  //se quick_sort3
             }
-
-            free(statistics);
 
             // for (int i = 0; i < T; i++) {
             //     printf("%d\n", a[i]);
@@ -271,9 +266,7 @@ int main(int argc, char *argv[]) {
 
         if (selected == 1 || selected == 6) {
             // ############ Heap Sort ####################
-            unsigned long *statistics = malloc(2 * sizeof(unsigned long));
-            statistics[0] = 0;
-            statistics[1] = 0;
+            unsigned long statistics[2] = {0, 0};
             clock_t start, stop;
             start = clock();
             heapSort(e, 0, N - 1, statistics);
@@ -285,10 +278,8 @@ int main(int argc, char *argv[]) {
                 if (arrPrint[j] == -1) {
                     break;
                 }
-
-                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm);
+                imprime(arrPrint[j], T, e, time, statistics, argv[3], N, algorithm, 2);
             }
-            free(statistics);
 
             // for (int i = 0; i < T; i++) {
             //     printf("%d\n", a[i]);

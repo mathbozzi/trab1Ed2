@@ -12,7 +12,7 @@ void insertionSort(Element *elements, int lo, int hi, unsigned long statistics[2
         if (more(elements[i], elements[i - 1])) {
             // printf("troco %d por %d \n", elements[i - 1], elements[i]);
             changes++;
-            swap(elements[i - 1], elements[i]);
+            swap(elements[i], elements[i - 1]);
         }
     }
     // for (int i = 0; i < hi; i++) {
